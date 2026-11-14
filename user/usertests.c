@@ -1019,6 +1019,7 @@ reparent(char *s)
     } else {
       int pid2 = fork();
       if (pid2 < 0) {
+        printf("%s: grandchild fork failed\n", s);
         kill(master_pid);
         exit(1);
       }

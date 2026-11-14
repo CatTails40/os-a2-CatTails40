@@ -88,6 +88,12 @@ struct proc {
   int killed;           // If non-zero, have been killed
   int xstate;           // Exit status to be returned to parent's wait
   int pid;              // Process ID
+  int level;       // MLFQ priority: 0 (highest) to 3
+  int runticks;    // Timer ticks charged to this process
+  int nsched;      // Number of times scheduled
+  int ctime;       // Creation tick
+  int levelticks;  // Ticks used at the current level
+  int usedticks;
 
   // wait_lock must be held when using this:
   struct proc *parent; // Parent process

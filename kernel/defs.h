@@ -52,7 +52,7 @@ struct inode*   namei(char*);
 struct inode*   nameiparent(char*, char*);
 int             readi(struct inode*, int, uint64, uint, uint);
 void            stati(struct inode*, struct stat*);
-int             writei(struct inode*, int, uint64, uint, uint);
+void proc_mlfq_boost(void);int             writei(struct inode*, int, uint64, uint, uint);
 void            itrunc(struct inode*);
 void            ireclaim(int);
 
@@ -103,6 +103,8 @@ void            yield(void);
 int             either_copyout(int user_dst, uint64 dst, void *src, uint64 len);
 int             either_copyin(void *dst, int user_src, uint64 src, uint64 len);
 void            procdump(void);
+int    	        mlfq_tick(struct proc *);
+int	        mlfq_should_preempt(struct proc *);
 
 // swtch.S
 void            swtch(struct context*, struct context*);
@@ -184,3 +186,6 @@ void            virtio_disk_intr(void);
 
 // number of elements in fixed-size array
 #define NELEM(x) (sizeof(x) / sizeof((x)[0]))
+
+int proc_getpinfo(uint64, int);
+void proc_mlfq_boost(void);
